@@ -41,9 +41,9 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
                             <h1>Leetcode</h1>
-                            <h2 class="subheading">121. Best Time to Buy and Sell Stock</h2>
+                            <h2 class="subheading">5. Longest Palindromic Substring</h2>
                             <span class="meta">
-                                <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">Problem Link</a>
+                                <a href="https://leetcode.com/problems/longest-palindromic-substring/">Problem Link</a>
                             </span>
                         </div>
                     </div>
@@ -56,13 +56,21 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <h1>題目講解</h1>
-                        <p>這題很簡單，因為題目說prices[i]</p>
-                        <p>不會大於10000，所以先把buy設成10001，</p>
-                        <p>然後再讓buy等於後面出現的每個價格的最小值，</p>
-                        <p>profit等於之後每個比buy值大的數減掉buy的差，</p>
-                        <p>跑完後輸出profit即為答案</p>
-                        <p>代碼如下:</p>
-                        <script src="https://gist.github.com/inanly/36a613f4adade0817393285f8625be29.js"></script>
+                        <p>這題是求字串內最大長度的回文，</p>
+                        <p>這題做法是建立兩個指標，l代表左邊，r代表右邊，</p>
+                        <p>i當作中心點去跑每個字的左右兩邊來求回文長度，</p>
+                        <p>如果左右兩指標相等，則兩指標向兩邊各前進一格，</p>
+                        <p>最後再把r-l-1來得出回文長度(因為while出來l跟r都會超出一格)，</p>
+                        <p>這裡要注意的是:</p>
+                        <p>需考慮奇數跟偶數問題，如果為奇數則讓i當中心點，</p>
+                        <p>如果為偶數，則使用i與i+1當中心點向外延伸</p>
+                        <p>最後求出奇數與偶數比較後的最大值字串，run完整個字串後，</p>
+                        <p>len即為字串的最大回文長度，最後再用i - (len-1) / 2求出起點，</p>
+                        <p>最後輸出起點到起點加上最長回文長度的為值即為答案。</p>
+                        <p>這裡要推薦一下花花醬的影片，講得非常好，影片如下:</p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/g3R-pjUNa3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <p>最後附上代碼:</p>
+                        <script src="https://gist.github.com/inanly/1559c80955334de05776efaf55478da8.js"></script>
                         
                     </div>
                 </div>
