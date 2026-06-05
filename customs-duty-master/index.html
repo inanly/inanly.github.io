@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>課税物件確定時期マスター</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">通関士試験 暗記トレーナー</p>
+          <h1>課税物件確定時期マスター</h1>
+          <p class="lead">「いつ物が決まるか」「どの日の法令か」「誰が納税義務者か」を、例外ごとに立体的に覚える。</p>
+        </div>
+        <div class="score-panel" aria-label="学習進捗">
+          <div class="score-number" id="masteryPercent">0%</div>
+          <div class="score-copy">全項目の定着率</div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="masteryBar"></div>
+          </div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="学習メニュー">
+        <button class="tab is-active" data-tab="overview">全体図</button>
+        <button class="tab" data-tab="matrix">一覧表</button>
+        <button class="tab" data-tab="examples">説明と例</button>
+        <button class="tab" data-tab="cards">暗記カード</button>
+        <button class="tab" data-tab="quiz">全項目テスト</button>
+        <button class="tab" data-tab="sources">原資料</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="view is-active" id="overview">
+        <div class="section-heading">
+          <p class="eyebrow">Memory Map</p>
+          <h2>まず全体像をつかむ</h2>
+          <p>原則から外れる列を色で見ると、表の丸暗記ではなく「例外の形」で思い出せる。</p>
+        </div>
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="visual-board">
+          <div class="board-head">
+            <h3>3列で見る判断の流れ</h3>
+            <div class="legend">
+              <span><i class="dot dot-time"></i>確定時期</span>
+              <span><i class="dot dot-law"></i>適用法令</span>
+              <span><i class="dot dot-tax"></i>納税義務者</span>
+            </div>
+          </div>
+          <div class="flow-lanes" id="flowLanes"></div>
+        </div>
+        <div class="exception-board">
+          <div class="board-head">
+            <h3>例外レーダー</h3>
+            <button class="ghost-button" id="toggleOnlyWeak">未定着だけ表示</button>
+          </div>
+          <div class="radar-list" id="radarList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="matrix">
+        <div class="section-heading">
+          <p class="eyebrow">Reference</p>
+          <h2>表を崩して覚える</h2>
+          <p>各行をカード化し、原則と違う列だけを強調している。</p>
+        </div>
+        <div class="toolbar">
+          <label class="search-box">
+            <span>検索</span>
+            <input id="searchInput" type="search" placeholder="例: 保税運送、郵便、承認" />
+          </label>
+          <select id="groupFilter" aria-label="分類で絞り込み">
+            <option value="all">すべての分類</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table class="study-table">
+            <thead>
+              <tr>
+                <th>対象</th>
+                <th>課税物件の確定時期</th>
+                <th>適用法令</th>
+                <th>納税義務者</th>
+                <th>例外の形</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="examples">
+        <div class="section-heading">
+          <p class="eyebrow">Understanding</p>
+          <h2>説明と例でつなげる</h2>
+          <p>状況を具体例に変換して、試験問題の文章から表の行へ戻れるようにする。</p>
+        </div>
+        <div class="example-grid" id="exampleGrid"></div>
+      </section>
+
+      <section class="view" id="cards">
+        <div class="section-heading">
+          <p class="eyebrow">Flash Cards</p>
+          <h2>1枚ずつ即答する</h2>
+          <p>表面は状況、裏面は3列の答え。弱いカードは全体図でも目立つ。</p>
+        </div>
+        <div class="card-stage">
+          <div class="flash-card" id="flashCard" tabindex="0" role="button" aria-label="暗記カードをめくる"></div>
+          <div class="card-controls">
+            <button class="secondary-button" id="prevCard">前へ</button>
+            <button class="primary-button" id="flipCard">答えを見る</button>
+            <button class="secondary-button" id="nextCard">次へ</button>
+          </div>
+          <div class="card-controls">
+            <button class="mark-button good" id="markMastered">覚えた</button>
+            <button class="mark-button weak" id="markWeak">あやしい</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="quiz">
+        <div class="section-heading">
+          <p class="eyebrow">Quiz</p>
+          <h2>全範囲を出題で固める</h2>
+          <p>各行の「確定時期・適用法令・納税義務者」をすべて問題化。補足ルールも別問にしている。</p>
+        </div>
+        <div class="quiz-layout">
+          <aside class="quiz-side">
+            <button class="primary-button wide" id="startAllQuiz">全項目テスト開始</button>
+            <button class="secondary-button wide" id="startQuickQuiz">ランダム10問</button>
+            <button class="ghost-button wide" id="resetProgress">進捗をリセット</button>
+            <div class="coverage-panel">
+              <h3>カバー状況</h3>
+              <div class="coverage-grid" id="coverageGrid"></div>
+            </div>
+          </aside>
+          <div class="quiz-panel" id="quizPanel">
+            <div class="empty-state">
+              <h3>出題モードを選ぶ</h3>
+              <p>全項目テストは、画像4枚の表にある各行を3列すべて確認する。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="sources">
+        <div class="section-heading">
+          <p class="eyebrow">Source Images</p>
+          <h2>元画像で確認する</h2>
+          <p>迷ったときは原資料に戻り、表の位置ごと記憶する。</p>
+        </div>
+        <div class="source-grid">
+          <figure>
+            <img src="S__109862923_0.jpg" alt="原則と主要例外の表" />
+            <figcaption>原則、保税地域、保税運送、船機用品、保税展示場</figcaption>
+          </figure>
+          <figure>
+            <img src="S__109862924_0.jpg" alt="特定郵便物などの表" />
+            <figcaption>特定郵便物、公売、無許可輸入、日本郵便、特例輸入</figcaption>
+          </figure>
+          <figure>
+            <img src="S__109862925_0.jpg" alt="課税物件確定時期のみ例外の解説" />
+            <figcaption>保税展示場・総合保税地域における販売用貨物等</figcaption>
+          </figure>
+          <figure>
+            <img src="S__109862926_0.jpg" alt="適用法令の例外と長期蔵置貨物の表" />
+            <figcaption>輸入許可前引取承認、長期蔵置貨物、保税作業による製品</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
